@@ -1,0 +1,45 @@
+function ProcessFile(netCDF_files, interval_len, output_dir)
+    [historical, ssp245, ssp370] = checkFileNames(netCDF_files);
+    if ((historical == 0 && ssp245 == 0) || (historical == 0 && ssp370 == 0))
+        error('Provided files must be at least one historical and one ssp file');
+    end
+    f_hist = char(netCDF_files(historical));
+    tab_historic = caculateIntervalSeasonalValues(f_hist, 1955, 2014, interval_len);
+    
+    if (ssp245 ~= 0)
+        f_ssp245 = char(netCDF_files(ssp245));
+        tab_ssp245 = caculateIntervalSeasonalValues(f_ssp245, 2015, 2044, interval_len);
+        tab_con = [tab_historic; tab_ssp245];
+        disp('---------------------------------------------------');
+        f_nm = strcat('historic_','ssp245_', FileNameGenerator('.xls'));
+        disp(f_nm);
+        disp(tab_con);
+        writetable(tab_con, 'concatenate_ssp245.xls');
+    end
+    if (ssp370 ~= 0)
+        f_ssp370 = char(netCDF_files(ssp370));
+        tab_ssp370 = caculateIntervalSeasonalValues(f_ssp370, 2015, 2044, interval_len);
+        tab_con = [tab_historic; tab_ssp370];
+        f_nm = strcat('historic_','ssp370_', FileNameGenerator('.xls'));
+%         disp('---------------------------------------------------');
+%         disp(tab_con);
+        writetable(tab_con, f_nm);
+    end
+end
+
+
+function [historical, ssp245, ssp370] = checkFileNames(files)
+        historical = 0;
+        ssp245 = 0;
+        ssp370 = 0;
+    for i = 1:length(files)
+        if (contains(files(i), 'historical'))
+            historical = i;
+        elseif (contains(files(i), 'ssp245'))
+            ssp245 = i;
+        elseif (contains(files(i), 'ssp370'))
+            ssp370 = i;
+        end
+    end
+end
+	

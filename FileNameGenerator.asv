@@ -3,6 +3,5 @@ function f = FileNameGenerator(file_name, extension)
 %     
 %     f = char(characters); 
 %     f = strcat(f, '_CMIP', extension);
-      
 end
 
