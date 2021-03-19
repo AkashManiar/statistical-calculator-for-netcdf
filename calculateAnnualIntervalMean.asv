@@ -1,10 +1,8 @@
-function aggregatedIntervals = caculateIntervalSeasonalValues(netcdfFile, start_year, end_year, interval)
-    % Here it assumes that time is present in netcdf file, and all the time
-    % values are caculate from days since 1850-01-01 (proleptic gregorian
-    % calendar)
+function calculateYearlyMean(netcdfFile, start_year, end_year, interval)
     if (interval < 1)
-        error('Interval cannot be less than 1 year, it much be over
+        error('Interval cannot be less than 1 year, it must be 1 or over');
     end
+    
     gregorian_date = datetime(1850,1,1);
 %     disp('---------------------------------');
 %     disp(interval * 3);
@@ -75,7 +73,4 @@ function aggregatedIntervals = caculateIntervalSeasonalValues(netcdfFile, start_
         fill_arry_upto = ind+length(each_yr_sob)-1;
         season(ind:fill_arry_upto) = each_yr_sob;
     end
-   
 end
-
-

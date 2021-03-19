@@ -46,6 +46,7 @@ end
 function f_nm = giveFileWithExt(h_name, ssp_name, extension)
     f_nm = strcat(h_name, '__AND__', ssp_name, extension);
 end
+
 function [historical, ssp245, ssp370] = checkFileNames(files)
         historical = 0;
         ssp245 = 0;

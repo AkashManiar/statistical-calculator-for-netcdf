@@ -2,8 +2,14 @@ function aggregatedIntervals = caculateIntervalSeasonalValues(netcdfFile, start_
     % Here it assumes that time is present in netcdf file, and all the time
     % values are caculate from days since 1850-01-01 (proleptic gregorian
     % calendar)
-    gregorian_date = datetime(1850,1,1);
+    if (interval < 1)
+        error('Interval cannot be less than 1 year, it must be 1 or over');
+    end
     
+    gregorian_date = datetime(1850,1,1);
+%     disp('---------------------------------');
+%     disp(interval * 3);
+    no_seasonal_months = interval * 3;
     file_details = GetNetCDF_FileDetails(netcdfFile);
     vr_name = char(file_details('variable_name'));
     
@@ -20,19 +26,23 @@ function aggregatedIntervals = caculateIntervalSeasonalValues(netcdfFile, start_
     aggregatedIntervals = table();
     
     for intv_start_yr = start_year:interval:end_year
-        winter = zeros(1, 30);
-        spring = zeros(1, 30);
-        summer = zeros(1, 30);
-        autumn = zeros(1, 30);
+        winter = zeros(1, no_seasonal_months);
+        spring = zeros(1, no_seasonal_months);
+        summer = zeros(1, no_seasonal_months);
+        autumn = zeros(1, no_seasonal_months);
         
         for yr = intv_start_yr:intv_start_yr+interval-1
             single_year = year(time) == yr;
             
             each_yr = time(single_year);
             each_sob = variable(single_year);
-
+            disp('----------------------------');
+            disp(each_sob);
+            
             win = each_sob(month(each_yr) >= 1 & month(each_yr) <= 3);
             winter = write_seasonal_valofyear(winter, win);
+            disp('----------------Winter-----------------');
+            disp(winter);
             
             sp = each_sob(month(each_yr) >= 4 & month(each_yr) <= 6);
             spring = write_seasonal_valofyear(spring, sp);
