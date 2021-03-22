@@ -10,7 +10,7 @@ function aggregatedIntervals = caculateIntervalSeasonalValues(netcdfFile, start_
 %     disp('---------------------------------');
 %     disp(interval * 3);
     no_seasonal_months = interval * 3;
-    file_details = GetNetCDF_FileDetails(netcdfFile);
+    file_details = getNetCDFFileDetails(netcdfFile);
     vr_name = char(file_details('variable_name'));
     
     % Time must be present in netcdf file
@@ -36,13 +36,13 @@ function aggregatedIntervals = caculateIntervalSeasonalValues(netcdfFile, start_
             
             each_yr = time(single_year);
             each_sob = variable(single_year);
-            disp('----------------------------');
-            disp(each_sob);
+%             disp('----------------------------');
+%             disp(each_sob);
             
             win = each_sob(month(each_yr) >= 1 & month(each_yr) <= 3);
             winter = write_seasonal_valofyear(winter, win);
-            disp('----------------Winter-----------------');
-            disp(winter);
+%             disp('----------------Winter-----------------');
+%             disp(winter);
             
             sp = each_sob(month(each_yr) >= 4 & month(each_yr) <= 6);
             spring = write_seasonal_valofyear(spring, sp);

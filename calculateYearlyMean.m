@@ -7,7 +7,7 @@ function aggregatedIntervals = calculateYearlyMean(netcdfFile, start_year, end_y
 %     disp('---------------------------------');
 %     disp(interval * 3);
     no_of_months = interval * 12;
-    file_details = GetNetCDF_FileDetails(netcdfFile);
+    file_details = getNetCDFFileDetails(netcdfFile);
     vr_name = char(file_details('variable_name'));
     
     % Time must be present in netcdf file
