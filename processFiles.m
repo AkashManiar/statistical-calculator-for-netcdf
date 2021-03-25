@@ -10,6 +10,7 @@ function [hist_and_ssp245, hist_and_ssp370] = processFiles(netCDF_files, interva
     % based on requirement
     
 %     hist_table = caculateIntervalSeasonalValues(f_hist, 1955, 2014, interval_len);
+    
     hist_table = calculateYearlyMean(f_hist, 1955, 2014, interval_len);
     f_hist = stripFileExtension(f_hist);
     

@@ -4,9 +4,7 @@
 function plotSeasonalValues(css, ess, wss, gom, variant, model, sspName)
     seasons = {'Winter', 'Spring', 'Summer', 'Autumn'};    
     for i=1:length(seasons)
-%         disp('------------');
-%         disp(seasons(i));
-%         disp(class(seasons(i)));
+
         ess_seasonal = ess(strcmp(ess.season, seasons{i}), :);
         css_seasonal = css(strcmp(css.season, seasons{i}), :);
         wss_seasonal = wss(strcmp(wss.season, seasons{i}), :);
