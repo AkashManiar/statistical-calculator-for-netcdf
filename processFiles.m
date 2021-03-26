@@ -9,9 +9,9 @@ function [hist_and_ssp245, hist_and_ssp370] = processFiles(netCDF_files, interva
     % At this time starting year and ending year are given as static input
     % based on requirement
     
-%     hist_table = caculateIntervalSeasonalValues(f_hist, 1955, 2014, interval_len);
+    hist_table = caculateIntervalSeasonalValues(f_hist, 1955, 2014, interval_len);
     
-    hist_table = calculateYearlyMean(f_hist, 1955, 2014, interval_len);
+%     hist_table = calculateYearlyMean(f_hist, 1955, 2014, interval_len);
     f_hist = stripFileExtension(f_hist);
     
     if (ind_ssp245 ~= 0)
@@ -31,8 +31,8 @@ end
 % mean
 function results = processSSP_Historic(ssp_file, hist_file, history_table, interval)
     
-%     ssp_table = caculateIntervalSeasonalValues(ssp_file, 2015, 2044, interval);
-    ssp_table = calculateYearlyMean(ssp_file, 2015, 2044, interval);
+    ssp_table = caculateIntervalSeasonalValues(ssp_file, 2015, 2044, interval);
+%     ssp_table = calculateYearlyMean(ssp_file, 2015, 2044, interval);
     results = [history_table; ssp_table];
     file_details = getNetCDFFileDetails(ssp_file);
     f_ssp_only_nm = char(file_details('file_name'));
