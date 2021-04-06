@@ -5,9 +5,8 @@ function plotHistoricalAndSSPValues(variables, fetch_string, season)
     historic_legends = {'css (historical)', 'ess (historical)', 'wss (historical)', 'gom (historical)'};
     
     ssp_colors = {'#ff4dd2', '#3333ff', '#33ff33', '#ff3333', '#e6e600', '#000000', '#404040', '#1affff'};
-    ssp_legends = {'css (ssp245)' , 'ess(ssp245)' , 'wss (ssp245)' , 'gom(ssp245)' , 'css (ssp370)' , 'ess (ssp370)' , 'wss (ssp370)' , 'gom (ssp370)'};
+    ssp_legends = {'css (ssp245)' , 'ess (ssp245)' , 'wss (ssp245)' , 'gom (ssp245)' , 'css (ssp370)' , 'ess (ssp370)' , 'wss (ssp370)' , 'gom (ssp370)'};
     
-    % 
     for i = 1:length(variables)
         
         tab = variables{i};

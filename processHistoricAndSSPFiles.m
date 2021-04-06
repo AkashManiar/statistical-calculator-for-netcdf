@@ -1,4 +1,4 @@
-function [annual, seasonal]= calculateAnnualAndSeasonalValues(historical_files, ssp_files)
+function [annual, seasonal]= processHistoricAndSSPFiles(historical_files, ssp_files)
     annual = table();
     seasonal = table();
     

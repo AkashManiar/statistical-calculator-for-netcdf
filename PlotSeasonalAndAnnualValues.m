@@ -12,7 +12,9 @@
 
 function PlotSeasonalAndAnnualValues(annual_values, seasonal_values, bi_dec_ann, bi_dec_ses)
     
-    figure('rend','painters','pos',[10 10 1000 1000])
+    figure('Units', 'inches', 'rend','painters','pos',[0 0 8.25 11.75]);
+    
+    set(gcf,'PaperUnits','inches','PaperPosition',[0 0 8.25 11.75])
 %     set(gcf,'position',[0.10, 0.10,1300,800])
 %     dim = [];
 % Sumemr position [0.02 0.26 0.03 0.15]
@@ -41,51 +43,54 @@ function PlotSeasonalAndAnnualValues(annual_values, seasonal_values, bi_dec_ann,
     axis('off')
 
 %     Axis and plotting annual and seasonal values
-    axes('position',[0.10 0.74 0.79 0.14]);
+    axes('position',[0.10 0.74 0.872 0.14]);
     plotHistoricalAndSSPValues(annual_values, 'mean');
     plotBidecadalLine(bi_dec_ann); 
     grid on;
     grid minor;
     l = legend('show');
-    l.Position = [0.935 0.715 0.02 0.1];
+    l.Position = [0.8 0.92 0.02 0.05];
     l.Title.String = 'Region (Experiment)';
-    l.Title.FontSize = 7;
+    l.Title.FontSize = 6;
     l.FontSize = 6;
-    title("ACCESS-CM2 (r1i1p1f1),Historical, ssp245 & ssp370 Experiments, 1955-2044");
+    l.NumColumns = 2;
+    title(["TaiESM1 (r1i1p1f1)," , "Historical, ssp245 & ssp370,", "1955-2044"]);
+    axP = get(gca,'Position');
+    set(gca, 'Position', axP)
    
     xlim([1955, 2044]);
-    ylim([7.5 15.5]);
+    ylim([9 22]);
     
-    axes('position',[0.10 0.58 0.79 0.14]);
+    axes('position',[0.10 0.58 0.872 0.14]);
     plotHistoricalAndSSPValues(seasonal_values, 'mean', 'Winter');
     plotBidecadalLine(bi_dec_ses, 'Winter'); 
     grid on;
     grid minor;
     xlim([1955, 2044]);
-    ylim([3 12]);
+    ylim([3.5 16.5]);
     
-    axes('position',[0.10 0.42 0.79 0.14]);
+    axes('position',[0.10 0.42 0.872 0.14]);
     plotHistoricalAndSSPValues(seasonal_values, 'mean', 'Spring');
     plotBidecadalLine(bi_dec_ses, 'Spring'); 
     grid on;
     grid minor;
     xlim([1955, 2044]);
-    ylim([4.5 13.5]);
+    ylim([7 20]);
 
-    axes('position',[0.10 0.26 0.79 0.14]);
+    axes('position',[0.10 0.26 0.872 0.14]);
     plotHistoricalAndSSPValues(seasonal_values, 'mean', 'Summer');
     plotBidecadalLine(bi_dec_ses, 'Summer'); 
     grid on;
     grid minor;
     xlim([1955, 2044]);
-    ylim([12 21]);
+    ylim([15.5 28.5]);
 
-    axes('position',[0.10 0.10 0.79 0.14]);
+    axes('position',[0.10 0.10 0.872 0.14]);
     plotHistoricalAndSSPValues(seasonal_values, 'mean', 'Autumn');
     plotBidecadalLine(bi_dec_ses, 'Autumn'); 
     grid on;
     grid minor;
     xlim([1955, 2044]);
-    ylim([8 17]);
-    print('ACCESS_CM2_bidecadal_annual','-dpng', '-r300');
+    ylim([9.5 22.5]);
+    print('TaiESM1_r1i1p1f1_seasonal_bidecadal_and_annual_plots','-dpng', '-r300');
 end

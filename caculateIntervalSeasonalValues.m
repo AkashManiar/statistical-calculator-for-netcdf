@@ -6,26 +6,32 @@ function aggregatedIntervals = caculateIntervalSeasonalValues(netcdfFile, start_
         error('Interval cannot be less than 1 year, it must be 1 or over');
     end
     
-    gregorian_date = datetime(1850,1,1);
-%     disp('---------------------------------');
-%     disp(interval * 3);
+    days_from = datetime(1850,01,01);
+%     first_date = datetime(0001, 01, 01);
     no_seasonal_months = interval * 3;
     file_details = getNetCDFFileDetails(netcdfFile);
     vr_name = file_details('variable_name');
     polygon = file_details('polygon');
     experiment = file_details('experiment');
+    model = file_details('model_name');
     variant = file_details('variant');
     
     % Time must be present in netcdf file
     time = ncread(netcdfFile, 'time');
     variable = ncread(netcdfFile, char(vr_name));
-    time = gregorian_date + days(time);
+    time = getDateVector(time);
+%     if (contains(experiment{1}, 'ssp'))
+%         days_from = datetime(2015, 01, 01);
+%     end
+%     time = days_from + days(time);
+    
+%     time = first_date + days(time);
     cond = year(time) >= start_year & year(time) <= end_year;
     time = time(cond);
     variable = variable(cond);
     seasons = {'Winter'; 'Spring'; 'Summer'; 'Autumn'};
 
-    VariableNames = {'start_year', 'end_year', 'season', 'mean', 'standard_deviation', 'maximum', 'minimum', 'variable', 'polygon', 'experiment', 'variant', 'interval'};
+    VariableNames = {'start_year', 'end_year', 'season', 'mean', 'standard_deviation', 'maximum', 'minimum', 'variable', 'polygon', 'experiment', 'model', 'variant', 'interval'};
     aggregatedIntervals = table();
     
     for intv_start_yr = start_year:interval:end_year
@@ -51,11 +57,12 @@ function aggregatedIntervals = caculateIntervalSeasonalValues(netcdfFile, start_
 
             aut = each_sob(month(each_yr) >= 10 & month(each_yr) <= 12);
             autumn = write_seasonal_valofyear(autumn, aut);
-
         end
+        
         interval_start_yr = getMatFilledValues(4, 1, intv_start_yr);
         interval_end_yr = getMatFilledValues(4, 1, intv_start_yr+interval-1);
         polygon_col = getMatFilledValues(4, 1, polygon);
+        model_col = getMatFilledValues(4, 1, model);
         experiment_col = getMatFilledValues(4, 1, experiment);
         variant_col = getMatFilledValues(4, 1, variant);
         interval_col = getMatFilledValues(4, 1, interval);
@@ -67,7 +74,7 @@ function aggregatedIntervals = caculateIntervalSeasonalValues(netcdfFile, start_
         seasonal_min = [min(winter); min(spring); min(summer); min(autumn)];
         
         
-        t = table(interval_start_yr, interval_end_yr, seasons, seasonal_avg, seasonal_std, seasonal_max, seasonal_min, var_col, polygon_col, experiment_col, variant_col, interval_col);
+        t = table(interval_start_yr, interval_end_yr, seasons, seasonal_avg, seasonal_std, seasonal_max, seasonal_min, var_col, polygon_col, experiment_col, model_col, variant_col, interval_col);
         aggregatedIntervals = [aggregatedIntervals; t];
     end
     
@@ -86,7 +93,6 @@ function aggregatedIntervals = caculateIntervalSeasonalValues(netcdfFile, start_
         else
             var = zeros(rows, cols);
         end
-        
         var(:) = value;
     end
 end
