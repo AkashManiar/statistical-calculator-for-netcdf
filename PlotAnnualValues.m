@@ -14,37 +14,25 @@ function PlotAnnualValues(annual_values, bi_dec_ann, plot_details)
    
     
     figure('Units', 'inches', 'rend','painters','pos',[0 0 8.25 11.75]);
+    set(gcf,'PaperUnits','inches','PaperPosition',[0 0 8.25 11.75]);
+    alphabets = {"a", "b", "c", "d", "e"};
+    model_len = length(plot_details('models'));
     
-%     a = legend('show');
-%     a.Position = [0.2 0.92 0.02 0.05];
-%     a.Title.String = 'Model (variant)';
-%     a.Title.FontSize = 6;
-%     a.FontSize = 6;
-%     a.NumColumns = 2;
-    % Axis titles
-    axes('position',[0.02 0.74 0.03 0.10]);
-    text(0.3,0.5,'a','fontsize',10,'fontweight','bold','color','k')
-    axis('off')
-
-    axes('position',[0.02 0.58 0.03 0.15]);
-    text(0.3,0.5,'b','fontsize',10,'fontweight','bold','color','k')
-    axis('off')
-
-    axes('position',[0.02 0.42 0.03 0.15]);
-    text(0.3,0.5,'c','fontsize',10,'fontweight','bold','color','k')
-    axis('off')
-
-    axes('position',[0.02 0.26 0.03 0.15]);
-    text(0.3,0.5,'d','fontsize',10,'fontweight','bold','color','k')
-    axis('off')
+    t = annotation('textbox');
+    t.String = ["Model (variant)", "", giveModelVariantString(plot_details, model_len, alphabets)];
+    t.Position = [0.075 0.9 0.2 0.089];
+    t.FontSize = 7;
     
-    axes('position',[0.02 0.10 0.03 0.15]);
-    text(0.3,0.5,'e','fontsize',10,'fontweight','bold','color','k')
-    axis('off')
-
-     model_len = length(plot_details('models'));
-     x = 0.075; y = 0.74; w = 0.874; h = 0.14; moveDown = 0.16;
-     
+    lx = 0.02; ly = 0.74; lw = 0.03; lh = 0.10; moveDown = 0.16;
+    x = 0.075; y = 0.74; w = 0.895; h = 0.14; 
+    
+    for j=1:model_len
+        ly = ly - 0.16;
+        axes('position',[lx ly lw lh]);
+        text(0.3,0.5,alphabets{j},'fontsize',10,'fontweight','bold','color','k')
+        axis('off')
+    end
+    
 %     Axis and plotting annual and seasonal values
     axes('position',[x y w h]);
     plotHistoricalAndSSPValues(filterValues(annual_values, plot_details, 1), 'mean');
@@ -59,7 +47,7 @@ function PlotAnnualValues(annual_values, bi_dec_ann, plot_details)
     l.NumColumns = 2;
     hist_stryr = plot_details('hist_stryr');
     ssp_endyr = plot_details('ssp_endyr');
-%     title([plot_details('variable_name') + ", " + plot_details('model_name') + " (" + plot_details('variant') + ")", "Historical, ssp245 & ssp370,",hist_stryr + "-" + ssp_endyr]);
+    title(["zos", "Historical, ssp245 & ssp370,",hist_stryr + "-" + ssp_endyr]);
     ylimits = calculateYLimitsAnnual(annual_values, plot_details, 'mean', model_len);
     axP = get(gca,'Position');
     set(gca, 'Position', axP);
@@ -79,5 +67,15 @@ function PlotAnnualValues(annual_values, bi_dec_ann, plot_details)
             ylim(ylimits{i});
         end
     end
-    print('5 models','-dpng', '-r300');
+    print('zos, 5 models','-dpng', '-r300');
+end
+
+function stringArry = giveModelVariantString(plot_details, model_len, alphabets)
+    stringArry = cell(1, model_len);
+    models = plot_details('models');
+    variants = plot_details('variants');
+    
+    for i=1:model_len
+        stringArry{i} = alphabets{i} + " - " +models{i} + " (" + variants{i} + ")";
+    end
 end
