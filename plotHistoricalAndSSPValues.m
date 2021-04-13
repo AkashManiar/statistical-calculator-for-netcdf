@@ -1,28 +1,33 @@
-function plotHistoricalAndSSPValues(variables, fetch_string, season)
-    
-    % It has cell array of historical and ssp colors in specified order, arranged according to input   
-    historic_colors = {'#ff1ac6', '#0000e6', '#00e600', '#e60000'};
-    historic_legends = {'css (historical)', 'ess (historical)', 'wss (historical)', 'gom (historical)'};
-    
-    ssp_colors = {'#ff4dd2', '#3333ff', '#33ff33', '#ff3333', '#e6e600', '#000000', '#404040', '#1affff'};
-    ssp_legends = {'css (ssp245)' , 'ess (ssp245)' , 'wss (ssp245)' , 'gom (ssp245)' , 'css (ssp370)' , 'ess (ssp370)' , 'wss (ssp370)' , 'gom (ssp370)'};
-    
-    for i = 1:length(variables)
+function plotHistoricalAndSSPValues(table_data, column, season)
+    polygons = {'css', 'ess', 'wss', 'gom'};
+    experimets = {'historical', 'ssp245', 'ssp370'};
+    all_colors = containers.Map({'historical', 'ssp245', 'ssp370'}, {{'#ff1ac6', '#0000e6', '#00e600', '#e60000'}, {'#ff4dd2', '#3333ff', '#33ff33', '#ff3333'}, {'#e6e600', '#000000', '#404040', '#1affff'}});
+    all_legends = containers.Map({'historical', 'ssp245', 'ssp370'}, {{'css (historical)', 'wss (historical)', 'wss (historical)', 'gom (historical)'}, {'css (ssp245)', 'ess (ssp245)', 'wss (ssp245)', 'gom (ssp245)'}, {'css (ssp370)', 'ess (ssp370)', 'wss (ssp370)', 'gom (ssp370)'}});
+    hist_data = cell(1, 4);
+    for i=1:length(experimets)
+        exp_color = all_colors(experimets{i});
+        legend = all_legends(experimets{i});
         
-        tab = variables{i};
-        if nargin == 3
-            tab = tab(strcmp(tab.season, season), :);
+        for j=1:length(polygons)
+            filter = strcmp(table_data.experiment, experimets{i}) & strcmp(table_data.polygon, polygons{j});
+            if nargin == 3
+                filter = filter & strcmp(table_data.season, season);
+            end
+            results = table_data(filter, :);
+            color = exp_color{j};
+            x = results.start_year;
+            y = results.(column);
+            if contains(experimets{i}, 'historical')
+                plot(x, y, 'Color', color, 'DisplayName', legend{j});
+                hist_data{j} = [x(end), y(end)];
+                hold on;
+            else
+                plot(x, y, 'Color', color, 'LineStyle', '--', 'DisplayName', legend{j});
+                hold on;
+                h_data = hist_data{j};
+                plot([h_data(1), x(1)], [h_data(2), y(1)], 'Color', color, 'HandleVisibility','off');
+            end
+            
         end
-        ssp_data = tab(tab.start_year > 2014, :);
-        if (i < 5)
-            historical_data = tab(tab.start_year < 2015, :);
-            plot(historical_data.start_year, historical_data.(fetch_string), 'Color', historic_colors{i}, 'DisplayName', historic_legends{i});
-            hold on;
-            plot([historical_data.start_year(end), ssp_data.start_year(1)], [historical_data.(fetch_string)(end), ssp_data.(fetch_string)(1)], 'Color', historic_colors{i}, 'HandleVisibility','off');
-            hold on;
-        end
-       
-        plot(ssp_data.start_year, ssp_data.(fetch_string), 'Color', ssp_colors{i}, 'LineStyle', '--', 'DisplayName', ssp_legends{i});
-        hold on;
     end
 end

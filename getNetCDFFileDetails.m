@@ -1,13 +1,18 @@
 function file_details = getNetCDFFileDetails(file)
     file_nm = file;
-    
-    % If file contains file path having '/', then it will fetch file name from the end of the string 
+    delimiter = "";
+    % If file contains file path having '/' or '\', then it will fetch file name from the end of the string 
     if contains(file, '/')
-        file_nm = split(file, '/');
+        delimiter = "/";
+    elseif contains(file, '\')
+        delimiter = "\";
+    end
+    
+    if ~isempty(delimiter)
+        file_nm = split(file, delimiter);
         cell = size(file_nm);
         cell = cell(1);
         file_nm = file_nm(cell);
-        
     end
     file_nm = split(file_nm, '.');
     file_nm = char(file_nm(1));

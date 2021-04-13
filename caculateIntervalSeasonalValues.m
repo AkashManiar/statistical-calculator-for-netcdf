@@ -6,7 +6,7 @@ function aggregatedIntervals = caculateIntervalSeasonalValues(netcdfFile, start_
         error('Interval cannot be less than 1 year, it must be 1 or over');
     end
     
-    days_from = datetime(1850,01,01);
+%     days_from = datetime(1850,01,01);
 %     first_date = datetime(0001, 01, 01);
     no_seasonal_months = interval * 3;
     file_details = getNetCDFFileDetails(netcdfFile);
