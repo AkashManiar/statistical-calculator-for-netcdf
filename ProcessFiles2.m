@@ -1,7 +1,7 @@
 function ProcessFiles2(folder_path)
-    variables = 'tos';
-    models = 'ACCESS-CM2, CanESM5, UKESM1-0-LL, TaiESM1, NorESM2-LM, MRI-ESM2-0, MPI-ESM1-2-LR, MIROC-ES2L, MIROC6, IPSL-CM6A-LR, GISS-E2-1-G, EC-Earth3, CNRM-ESM2-1, CNRM-CM6-1, CMCC-CM2-SR5, CESM2-WACCM, CESM2, CanESM5-CanOE, CAMS-CSM1-0, AWI-CM-1-1-MR, ACCESS-ESM1-5';
-    variants = 'r1i1p1f1, r2i1p2f1, r1i1p1f2, r1i1p1f1, r3i1p1f1, r1i1p1f1, r3i1p1f1, r3i1p1f2, r3i1p1f1, r4i1p1f1, r3i1p1f2, r1i1p1f1, r5i1p1f2, r3i1p1f2, r1i1p1f1, r3i1p1f1, r4i1p1f1, r3i1p2f1, r2i1p1f1, r1i1p1f1, r3i1p1f1';
+    variables = 'zos';
+    models = 'ACCESS-CM2, CanESM5, UKESM1-0-LL, TaiESM1, NorESM2-LM';
+    variants = 'r1i1p1f1, r2i1p2f1, r1i1p1f2, r1i1p1f1, r3i1p1f1';
     start_year_hist = 1955;
     end_year_hist = 2014;
     start_year_ssp = 2015;
@@ -63,8 +63,6 @@ function ProcessFiles2(folder_path)
         variables = getCellArrayOfString(variables);
         models = getCellArrayOfString(models);
         variants = getCellArrayOfString(variants);
-        disp(length(models));
-        disp(length(variants));
         if ~isequal(size(models), size(variants))
             error('Number of inputted models should be equal as that of the variants');
         end

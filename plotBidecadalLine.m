@@ -1,4 +1,4 @@
-function plotBidecadalLine(bi_dec_ann, season, hist_stryr, ssp_stryr)
+function plotBidecadalLine(bi_dec_ann, hist_stryr, ssp_stryr)
     polygons = {'css', 'ess', 'wss', 'gom'};
     experimets = {'historical', 'ssp245', 'ssp370'};
     all_colors = containers.Map({'historical', 'ssp245', 'ssp370'}, {{'#ff1ac6', '#0000e6', '#00e600', '#e60000'}, {'#ff4dd2', '#3333ff', '#33ff33', '#ff3333'}, {'#e6e600', '#000000', '#404040', '#1affff'}});
@@ -9,9 +9,6 @@ function plotBidecadalLine(bi_dec_ann, season, hist_stryr, ssp_stryr)
         duration = bi_decadal_range(experimets{i});
         for j=1:length(polygons)
             filter = strcmp(bi_dec_ann.experiment, experimets{i}) & strcmp(bi_dec_ann.polygon, polygons{j});
-            if ~isempty(season)
-                filter = filter & strcmp(bi_dec_ann.season, season);
-            end
             results = bi_dec_ann(filter, :);
             color = exp_color{j};
             x = [duration{1} duration{2}];

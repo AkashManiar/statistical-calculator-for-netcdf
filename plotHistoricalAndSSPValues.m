@@ -1,4 +1,4 @@
-function plotHistoricalAndSSPValues(table_data, column, season)
+function plotHistoricalAndSSPValues(table_data, column)
     polygons = {'css', 'ess', 'wss', 'gom'};
     experimets = {'historical', 'ssp245', 'ssp370'};
     all_colors = containers.Map({'historical', 'ssp245', 'ssp370'}, {{'#ff1ac6', '#0000e6', '#00e600', '#e60000'}, {'#ff4dd2', '#3333ff', '#33ff33', '#ff3333'}, {'#e6e600', '#000000', '#404040', '#1affff'}});
@@ -9,10 +9,7 @@ function plotHistoricalAndSSPValues(table_data, column, season)
         legend = all_legends(experimets{i});
         
         for j=1:length(polygons)
-            filter = strcmp(table_data.experiment, experimets{i}) & strcmp(table_data.polygon, polygons{j});
-            if nargin == 3
-                filter = filter & strcmp(table_data.season, season);
-            end
+            filter = strcmp(table_data.experiment, experimets{i}) & strcmp(table_data.polygon, polygons{j});    
             results = table_data(filter, :);
             color = exp_color{j};
             x = results.start_year;
