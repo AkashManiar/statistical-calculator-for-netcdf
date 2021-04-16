@@ -7,10 +7,12 @@ function processHistoricAndSSPFiles(selected_files, start_yr_hist, end_yr_hist, 
 counter = 0;
 variants = cell(1,5);
 variables = cell(1,5);
-models = cell(1,5);
+models = {};
 annual = table();   
 bid_annual = table();
-
+letters = {"a", "b", "c", "d", "e"};
+set = 0;
+file_len = length(selected_files);
 for j=1:12:length(selected_files)
     counter = counter + 1;
     if (counter > 5)
@@ -35,10 +37,11 @@ for j=1:12:length(selected_files)
     
     variants{counter} = variant;
     variables{counter} = vr_name;
-    models{counter} = model;
+    models{end+1} = model;
     
-    if counter == 5
-        plot_details = containers.Map({'variables', 'models', 'variants', 'hist_stryr', 'hist_endyr', 'ssp_stryr', 'ssp_endyr', 'bi_hist_stryr', 'bi_ssp_stryr'}, {variables, models, variants, start_yr_hist, end_yr_hist, start_yr_ssp, end_yr_ssp, bi_start_hist, bi_start_ssp});
+    if counter == 5 || (set < 5 && j+11 == length(selected_files))
+        set = set+1;
+        plot_details = containers.Map({'variables', 'models', 'variants', 'hist_stryr', 'hist_endyr', 'ssp_stryr', 'ssp_endyr', 'bi_hist_stryr', 'bi_ssp_stryr', 'letter'}, {variables, models, variants, start_yr_hist, end_yr_hist, start_yr_ssp, end_yr_ssp, bi_start_hist, bi_start_ssp, letters{set}});
         PlotAnnualValues(annual, bid_annual, plot_details);
         counter = 0;
     else
