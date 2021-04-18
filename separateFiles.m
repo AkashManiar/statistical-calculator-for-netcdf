@@ -14,7 +14,7 @@ function [selected_files]  = separateFiles(folder_path, variables, models, varia
             set_of_files = {};
             model = models{k};
             variant = variants{k};
-            if strcmp(model, "CanESM5")
+            if strcmp(model, "CNRM-CM6-1-HR")
                 disp(model);
             end
             hist_str   = variable + "_Omon_" + model + "_historical_" + variant;

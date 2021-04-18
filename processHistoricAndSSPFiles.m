@@ -15,10 +15,6 @@ set = 0;
 file_len = length(selected_files);
 for j=1:12:length(selected_files)
     counter = counter + 1;
-    if (counter > 5)
-        annual = table();   
-        bid_annual = table();
-    end
     
     for i=j:j+11
         if contains(selected_files{i}, 'historical')
@@ -44,6 +40,11 @@ for j=1:12:length(selected_files)
         plot_details = containers.Map({'variables', 'models', 'variants', 'hist_stryr', 'hist_endyr', 'ssp_stryr', 'ssp_endyr', 'bi_hist_stryr', 'bi_ssp_stryr', 'letter'}, {variables, models, variants, start_yr_hist, end_yr_hist, start_yr_ssp, end_yr_ssp, bi_start_hist, bi_start_ssp, letters{set}});
         PlotAnnualValues(annual, bid_annual, plot_details);
         counter = 0;
+        annual = table();   
+        bid_annual = table();
+        variants = cell(1,5);
+        variables = cell(1,5);
+        models = {};
     else
         continue;
     end

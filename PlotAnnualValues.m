@@ -48,7 +48,7 @@ function PlotAnnualValues(annual_values, bi_dec_ann, plot_details)
     l.NumColumns = 2;
     hist_stryr = plot_details('hist_stryr');
     ssp_endyr = plot_details('ssp_endyr');
-    t = title(["zos", "Historical, ssp245 &", "ssp370," + hist_stryr + "-" + ssp_endyr]);
+    t = title(["sob", "Historical, ssp245 &", "ssp370," + hist_stryr + "-" + ssp_endyr]);
     t.FontSize = 11;
     ylimits = calculateYLimitsAnnual(annual_values, plot_details, 'mean', model_len);
     axP = get(gca,'Position');
