@@ -58,7 +58,7 @@ function PlotSeasonalAndAnnualValues(annual_values, seasonal_values, bi_dec_ann,
     hist_stryr = plot_details('hist_stryr');
     ssp_endyr = plot_details('ssp_endyr');
     plotsOf = {'Annual', 'Winter', 'Spring', 'Summer', 'Autumn'};
-    title([plot_details('variable_name') + ", " + plot_details('model_name') + " (" + plot_details('variant') + ")", "Historical, ssp245 & ssp370,",hist_stryr + "-" + ssp_endyr]);
+    title([plot_details('variable_name') + ", " + plot_details('model_name'), "Historical, ssp245 & ssp370,",hist_stryr + "-" + ssp_endyr]);
     ylimits = calculateYLimits(annual_values, seasonal_values, plotsOf, 'mean');
     axP = get(gca,'Position');
     set(gca, 'Position', axP);
