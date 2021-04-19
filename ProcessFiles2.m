@@ -1,7 +1,10 @@
 function ProcessFiles2(folder_path)
     variables = 'sob';
-    models = 'ACCESS-CM2, ACCESS-ESM1-5, AWI-CM-1-1-MR, CAMS-CSM1-0, CanESM5, CanESM5-CanOE, CESM2, CESM2-WACCM, CMCC-CM2-SR5, CNRM-CM6-1, CNRM-CM6-1-HR, CNRM-ESM2-1, EC-Earth3, GISS-E2-1-G, IPSL-CM6A-LR, MIROC6, MIROC-ES2L, MPI-ESM1-2-HR, MPI-ESM1-2-LR, MRI-ESM2-0, NorESM2-LM, TaiESM1, UKESM1-0-LL';
-    variants = 'r1i1p1f1, r1i1p1f1, r1i1p1f1, r1i1p1f1, r1i1p2f1, r3i1p2f1, r4i1p1f1,r1i1p1f1, r1i1p1f1, r1i1p1f2,r1i1p1f2, r1i1p1f2, r1i1p1f1, r1i1p1f2, r2i1p1f1, r1i1p1f1, r1i1p1f2,r1i1p1f1,r1i1p1f1, r1i1p1f1, r1i1p1f1, r1i1p1f1, r1i1p1f2';
+    models = 'ACCESS-CM2 , ACCESS-ESM1-5, AWI-CM-1-1-MR , CAMS-CSM1-0, CanESM5, CanESM5-CanOE, CESM2, CESM2-WACCM, CMCC-CM2-SR5, CNRM-CM6-1, CNRM-CM6-1-HR, CNRM-ESM2-1, EC-Earth3, GISS-E2-1-G , IPSL-CM6A-LR, MIROC6 , MIROC-ES2L, MPI-ESM1-2-HR, MPI-ESM1-2-LR , MRI-ESM2-0, NorESM2-LM , TaiESM1 , UKESM1-0-LL';
+    variants = 'r1i1p1f1, r1i1p1f1, r1i1p1f1, r1i1p1f1, r1i1p2f1, r3i1p2f1, r4i1p1f1, r1i1p1f1, r1i1p1f1, r1i1p1f2, r1i1p1f2, r1i1p1f2, r1i1p1f1, r1i1p1f2, r2i1p1f1, r1i1p1f1, r1i1p1f2,r1i1p1f1,r1i1p1f1, r1i1p1f1, r1i1p1f1, r1i1p1f1, r1i1p1f2';
+%     models = 'MIROC6 , MIROC-ES2L, MPI-ESM1-2-HR, MPI-ESM1-2-LR , MRI-ESM2-0, NorESM2-LM , TaiESM1 , UKESM1-0-LL';
+%     variants = 'r1i1p1f1,  r1i1p1f2, r1i1p1f1, r1i1p1f1, r1i1p1f1, r1i1p1f1,  r1i1p1f1, r1i1p1f2';
+
     start_year_hist = 1955;
     end_year_hist = 2014;
     start_year_ssp = 2015;
@@ -55,7 +58,6 @@ function ProcessFiles2(folder_path)
 %         ProcessFiles2(folder_path)
 %     end
 
-    
     isValuesOk = ~(isempty(start_year_hist) || isempty(end_year_hist) || isempty(start_year_ssp) || isempty(end_year_ssp) || isempty(interval) || isempty(models) || isempty(variants) || isempty(variables));
     
     
@@ -66,7 +68,7 @@ function ProcessFiles2(folder_path)
         if ~isequal(size(models), size(variants))
             error('Number of inputted models should be equal as that of the variants');
         end
-        selected_files= separateFiles(folder_path, variables, models, variants);
+        selected_files = separateFiles(folder_path, variables, models, variants);
         len = length(selected_files);
         model_len = length(models);
         variant_len = length(variants);
