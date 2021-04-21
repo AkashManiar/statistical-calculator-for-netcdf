@@ -39,7 +39,7 @@ function PlotAnnualValues(annual_values, bi_dec_ann, plot_details)
     plotHistoricalAndSSPValues(filterValues(annual_values, plot_details, 1), 'mean');
     plotBidecadalLine(filterValues(bi_dec_ann, plot_details, 1), plot_details('bi_hist_stryr'), plot_details('bi_ssp_stryr'));
     grid on;
-    grid minor;
+%     grid minor;
     l = legend('show');
     l.Position = [0.81 0.92 0.017 0.05];
     l.Title.String = 'Region (Experiment)';
@@ -48,7 +48,7 @@ function PlotAnnualValues(annual_values, bi_dec_ann, plot_details)
     l.NumColumns = 2;
     hist_stryr = plot_details('hist_stryr');
     ssp_endyr = plot_details('ssp_endyr');
-    t = title(["sob", "Historical, ssp245 &", "ssp370," + hist_stryr + "-" + ssp_endyr]);
+    t = title([variables{1}, "Historical, ssp245 &", "ssp370," + hist_stryr + "-" + ssp_endyr]);
     t.FontSize = 11;
     ylimits = calculateYLimitsAnnual(annual_values, plot_details, 'mean', model_len);
     axP = get(gca,'Position');
@@ -64,7 +64,7 @@ function PlotAnnualValues(annual_values, bi_dec_ann, plot_details)
             plotHistoricalAndSSPValues(filterValues(annual_values, plot_details, i), 'mean');
             plotBidecadalLine(filterValues(bi_dec_ann, plot_details, i), plot_details('bi_hist_stryr'), plot_details('bi_ssp_stryr'));
             grid on;
-            grid minor;
+%             grid minor;
             xlim([hist_stryr, ssp_endyr]);
             ylim(ylimits{i});
         end
