@@ -48,7 +48,7 @@ function PlotSeasonalAndAnnualValues(annual_values, seasonal_values, bi_dec_ann,
     plotHistoricalAndSSPValues(annual_values, 'mean');
     plotBidecadalLine(bi_dec_ann, '', plot_details('bi_hist_stryr'), plot_details('bi_ssp_stryr')); 
     grid on;
-    grid minor;
+%     grid minor;
     l = legend('show');
     l.Position = [0.8 0.92 0.02 0.05];
     l.Title.String = 'Region (Experiment)';
@@ -70,7 +70,7 @@ function PlotSeasonalAndAnnualValues(annual_values, seasonal_values, bi_dec_ann,
     plotHistoricalAndSSPValues(seasonal_values, 'mean', 'Winter');
     plotBidecadalLine(bi_dec_ses, 'Winter', plot_details('bi_hist_stryr'), plot_details('bi_ssp_stryr')); 
     grid on;
-    grid minor;
+%     grid minor;
     xlim([hist_stryr, ssp_endyr]);
     ylim(ylimits{2});
     
@@ -78,7 +78,7 @@ function PlotSeasonalAndAnnualValues(annual_values, seasonal_values, bi_dec_ann,
     plotHistoricalAndSSPValues(seasonal_values, 'mean', 'Spring');
     plotBidecadalLine(bi_dec_ses, 'Spring', plot_details('bi_hist_stryr'), plot_details('bi_ssp_stryr')); 
     grid on;
-    grid minor;
+%     grid minor;
     xlim([hist_stryr, ssp_endyr]);
     ylim(ylimits{3});
 
@@ -86,7 +86,7 @@ function PlotSeasonalAndAnnualValues(annual_values, seasonal_values, bi_dec_ann,
     plotHistoricalAndSSPValues(seasonal_values, 'mean', 'Summer');
     plotBidecadalLine(bi_dec_ses, 'Summer', plot_details('bi_hist_stryr'), plot_details('bi_ssp_stryr')); 
     grid on;
-    grid minor;
+%     grid minor;
     xlim([hist_stryr, ssp_endyr]);
     ylim(ylimits{4});
 
@@ -94,8 +94,8 @@ function PlotSeasonalAndAnnualValues(annual_values, seasonal_values, bi_dec_ann,
     plotHistoricalAndSSPValues(seasonal_values, 'mean', 'Autumn');
     plotBidecadalLine(bi_dec_ses, 'Autumn', plot_details('bi_hist_stryr'), plot_details('bi_ssp_stryr')); 
     grid on;
-    grid minor;
+%     grid minor;
     xlim([hist_stryr, ssp_endyr]);
     ylim(ylimits{5});
-    print(plot_details('variable_name') + "," + plot_details('model_name') + " (" + plot_details('variant'),'-dpng', '-r300');
+    print(plot_details('variable_name') + "," + plot_details('model_name'),'-dpng', '-r300');
 end
